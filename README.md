@@ -10,7 +10,7 @@
 
 1. Клонируйте репозиторий:
    ```bash
-   git clone https://github.com/your-username/py_game.git
+   git clone https://github.com/discipleartem/py_game.git
    cd py_game
    ```
 
@@ -21,5 +21,5 @@
 
 3. Запустите игру:
    ```bash
-   python /home/tomas/WORK/py_game/main.py
+   python main.py
    ```
