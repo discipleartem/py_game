@@ -1,40 +1,13 @@
+from wellcome_screen import wellcome_screen
+from main_menu import MAIN_MENU, show_main_menu
+from user_choice import user_choice
 
 
-
-print("=" * 50)
-print("    " + "Добро пожаловать в Trash-RPG !" + "    ")
-print("=" * 50)
-
-MAIN_MENU = ("Выйти", "Новая Игра")
-print("Главное меню:")
-
-# 1. Сначала нумеруем пункты меню через enumerate, сохраняя их оригинальные индексы.
-# 2. Превращаем результат в кортеж (tuple), чтобы иметь возможность использовать срезы (slicing).
-menu_items = tuple(enumerate(MAIN_MENU)) 
+def game():
+    wellcome_screen()
+    show_main_menu()
+    user_choice(MAIN_MENU)
 
 
-# Организуем цикл так, чтобы пункт с индексом 0 ("Выйти") всегда шел последним:
-# - menu_items[1:] берет все элементы, начиная со второго (индексы 1, 2...).
-# - menu_items[:1] берет только самый первый элемент (индекс 0).
-# - Складывая их (+), мы получаем последовательность, где "0" перемещен в конец.
-for i, item in menu_items[1:] + menu_items[:1]:
-    print(f"{i}. {item}")
-
-while True:
-    user_choice = input("\nВыберите пункт меню: ")
-    
-    # Проверяем, является ли ввод числом и входит ли он в диапазон индексов
-    if user_choice.isdigit():
-        choice_idx = int(user_choice)
-        if 0 <= choice_idx < len(MAIN_MENU):
-            break  # Выход из цикла, если ввод корректен
-    
-    print(f"Ошибка: введите число от 0 до {len(MAIN_MENU) - 1}")
-
-# Обработка выбора
-match choice_idx:
-    case 1:
-        print(f"Запуск: {MAIN_MENU[1]}...")
-    case 0:
-        print("Выход из игры. До встречи!")
-        exit()
+if __name__ == "__main__":
+    game()
