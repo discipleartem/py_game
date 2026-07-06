@@ -37,5 +37,15 @@ def create_character():
     print("Создание персонажа:")
     name = input("Введите имя вашего героя: ")
     character = Character(name)
+    print()
     print(f"Персонаж {character.name} успешно создан!")
+    print()
+    print("Ваши характеристики:")
+    print(f"Сила: {character.strength}")
+    print(f"Ловкость: {character.agility}")
+    print(f"Выносливость: {character.constitution}")
+    print(f"Интеллект: {character.intelligence}")
+    print(f"Мудрость: {character.wisdom}")
+    print(f"Удача: {character.luck}")
+
     return character
