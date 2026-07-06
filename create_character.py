@@ -1,56 +1,14 @@
+from character import Character
+from character import RACES # tuple с объектами классов
 
 
-
-class Character:
-    # Константы для баланса игры
-    DEFAULT_STAT = 1
-    MIN_STAT = 1
-    MAX_STAT = 20
-
-    MIN_LVL = 1
-    MAX_LVL = 100
-
-
-    def __init__(self, name, strength=None, agility=None, constitution=None,
-                 intelligence=None, wisdom=None, luck=None, level :int=1):
-        self.name = name
-        
-        # Если значение не передано, используем DEFAULT_STAT.
-        # Метод _stat_validate гарантирует, что стат будет в диапазоне [MIN_STAT, MAX_STAT]
-        self.strength = self._stat_validate(strength or self.DEFAULT_STAT)
-        self.agility = self._stat_validate(agility or self.DEFAULT_STAT)
-        self.constitution = self._stat_validate(constitution or self.DEFAULT_STAT)
-        self.intelligence = self._stat_validate(intelligence or self.DEFAULT_STAT)
-        self.wisdom = self._stat_validate(wisdom or self.DEFAULT_STAT)
-        self.luck = self._stat_validate(luck or self.DEFAULT_STAT)
-
-        self.level = self._level_validate(level) or 1
-
-
-
-    def _stat_validate(self, value):
-        """Вспомогательный метод, чтобы значение не выходило за границы."""
-        # Логика работы: min() ограничивает значение сверху на MAX_STAT,
-        # а max() ограничивает результат снизу на MIN_STAT.
-        # Результат: значение гарантированно в диапазоне [MIN_STAT, MAX_STAT]
-        return max(self.MIN_STAT, min(self.MAX_STAT, value))
-
-    def _level_validate(self, value):
-        """Вспомогательный метод, чтобы значение уровня не выходило за границы."""
-        return max(self.MIN_LVL, min(self.MAX_LVL, value))
-
-
-
-
-def create_character():
-    print("Создание персонажа:")
-    name = input("Введите имя вашего героя: ")
-    character = Character(name=name, level=1)
+def display_character(character):
+    print(f"Имя: {character.name}")
     print()
-    print(f"Персонаж {character.name} успешно создан!")
-    print()
+
     print(f"Уровень: {character.level} ")
     print()
+
     print("Ваши характеристики:")
     print(f"Сила: {character.strength}")
     print(f"Ловкость: {character.agility}")
@@ -58,5 +16,36 @@ def create_character():
     print(f"Интеллект: {character.intelligence}")
     print(f"Мудрость: {character.wisdom}")
     print(f"Удача: {character.luck}")
+    print()
+
+
+def set_race(races):
+    print()
+    print("Выберите расу вашего персонажа:")
+    for i, race in enumerate(races, start=1):
+        print(f"{i}. {race().name}")
+
+    choice = input("Введите номер расы: ")
+
+    try:
+        choice = int(choice)
+    except ValueError:
+        print("Ошибка: Введите корректный номер расы.")
+        return set_race(races)
+
+    return races[choice - 1]()
+
+
+
+def create_character():
+    print("Создание персонажа:")
+    print()
+    name = input("Введите имя вашего героя: ")
+    print()
+
+    race = set_race(races=RACES)
+    character = Character(name=name, level=1, race=race)
+    display_character(character=character)
+    print(f"Персонаж {character.name} успешно создан!")
 
     return character

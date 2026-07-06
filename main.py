@@ -1,7 +1,13 @@
+import sys
+import io
 from wellcome_screen import wellcome_screen
 from main_menu import MAIN_MENU, show_main_menu
 from user_choice import user_choice
 from create_character import create_character
+
+# Установка кодировки UTF-8 для стандартных потоков ввода/вывода
+sys.stdin = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', write_through=True)
 
 
 def game():
